@@ -1,22 +1,37 @@
 import React from 'react'
 import { FaPlus } from 'react-icons/fa'
+import Tooltip from '@material-ui/core/Tooltip'
 
-function Favourites({ urlOfSite }) { 
+import FavouritesAdd from './FavouritesAdd'
 
-    const url = urlOfSite
+function Favourites({ urlOfSite, showAdd }) { 
 
     function setFavicon(urlToIcon){
-        if(urlToIcon === 'add') { 
+        if(urlToIcon == 'Add') { 
             return <FaPlus />
         } else {
-           return <img src={'https://plus.google.com/_/favicon?domain_url=' + urlToIcon}></img>
+           return <img id='favicon' src={'https://plus.google.com/_/favicon?domain_url=' + urlToIcon}></img>
+        }
+    }
+
+    function handleClick() {
+        console.log('CLICK')
+        if(urlOfSite == 'Add') {
+            showAdd(true)
+        } else { 
+            window.location.href = ('http://' + urlOfSite)
         }
     }
 
     return (
+        <Tooltip title={urlOfSite}>
         <div id='favourite'>
-            <button id="favourite-button">{setFavicon(url)}</button>
+            <button id="favourite-button" onClick={handleClick}>
+                {setFavicon(urlOfSite)}
+                
+            </button>
         </div>
+        </Tooltip>
     )
 }
 
